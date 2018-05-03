@@ -9,8 +9,9 @@
 
   switch($request_method)
   {
-    case 'POST':
-    login();
+    case 'GET':
+    // Insert Product
+    get_doctors();
     break;
     default:
     // Invalid Request Method
@@ -18,16 +19,11 @@
     break;
   }
 
-  function login ()
+  function get_doctors()
   {
     global $connection;
 
-    $data = json_decode(file_get_contents('php://input'), true);
-    $uid=$data["email"];
-    $pwd=$data["password"];
-
-    $query="SELECT * FROM users 
-            WHERE user_email='$uid' AND user_pwd='$pwd'";
+    $query="SELECT * FROM users WHERE user_role='doctor'";
     $response=array();
     $result=mysqli_query($connection, $query);
     while($row=mysqli_fetch_assoc($result))
@@ -37,4 +33,5 @@
     header('Content-Type: application/json');
     echo json_encode($response);
   }
+
 ?>

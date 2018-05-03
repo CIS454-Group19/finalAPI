@@ -22,8 +22,7 @@
     }
     break;
     case 'POST':
-    // Insert Product
-    insert_employee();
+    insert_user();
     break;
     default:
     // Invalid Request Method
@@ -63,7 +62,7 @@
     echo json_encode($response);
   }
 
-  function insert_employee()
+  function insert_user()
   {
   global $connection;
   
@@ -75,7 +74,12 @@
   $uid=$data["username"];
   $loc=$data["location"];
   $bio=$data["bio"];
-  echo $query="INSERT INTO users SET user_first='".$firstName."', user_last='".$lastName."', user_email='".$ema."', user_pwd='".$pwd."', user_uid='".$uid."', user_location='".$loc."', user_bio='".$bio."'";
+  $rating=$data["rating"];
+  $phone=$data["phone"];
+  $visits=$data["visits"];
+  $role=$data["role"];
+
+  echo $query="INSERT INTO users SET user_first='".$firstName."', user_last='".$lastName."', user_email='".$ema."', user_pwd='".$pwd."', user_uid='".$uid."', user_location='".$loc."', user_bio='".$bio."', phone_number='".$phone."', rating='".$rating."', number_visits='".$visits."', user_role='".$role."'";
   if(mysqli_query($connection, $query))
   {
   $response=array(
